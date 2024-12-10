@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+    <h1>Smart Home Dashboard</h1>
+    <nav>
+        <a href="{% url 'core:users' %}">Manage Users</a>
+        <a href="{% url 'core:devices' %}">Manage Devices</a>
+        <a href="{% url 'core:schedules' %}">Manage Schedules</a>
+    </nav>
+
+    <section>
+        <h2>Notifications</h2>
+        {% if notifications %}
+            <ul>
+                {% for notification in notifications %}
+                    <li class="{{ notification.status|lower }}">
+                        <strong>{{ notification.type }}:</strong> {{ notification.message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No notifications available.</p>
+        {% endif %}
+    </section>
+    <section>
+        <h2>Device Logs</h2>
+        {% if action_logs %}
+            <ul>
+                {% for log in action_logs %}
+                    <li>
+                        {{ log.timestamp }}: {{ log.action }} - {{ log.details.device_name }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No action logs available.</p>
+        {% endif %}
+    </section>
+    
+    <section>
+        <h2>Energy Usage Logs</h2>
+        {% if usage_logs %}
+            <ul>
+                {% for log in usage_logs %}
+                    <li>
+                        {{ log.timestamp }}: {{ log.details.device_name }} - {{ log.energy_consumed }} kWh
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No energy logs available.</p>
+        {% endif %}
+    </section>
+    <section>
+        <h2>Recommendations</h2>
+        <form method="POST" action="{% url 'core:generate_recommendations' %}">
+            {% csrf_token %}
+            <button type="submit">Generate Recommendations</button>
+        </form>
+        {% if recommendations %}
+            <ul>
+                {% for recommendation in recommendations %}
+                    <li>
+                        <strong>{{ recommendation.details.action }}:</strong> 
+                        {{ recommendation.details.reason }} ({{ recommendation.details.expected_savings }})
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No recommendations available. Click the button above to generate new recommendations.</p>
+        {% endif %}
+    </section>
+    
+    
+</body>
+</html>

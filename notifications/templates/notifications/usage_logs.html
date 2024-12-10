@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Usage Logs</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+    <h1>Energy Usage Logs</h1>
+    <nav>
+        <a href="{% url 'core:index' %}">Back to Dashboard</a>
+    </nav>
+    <ul>
+        {% for log in usage_logs %}
+        <li>
+            <strong>{{ log.timestamp }}:</strong> {{ log.details.device_name }} - {{ log.energy_consumed }} kWh
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

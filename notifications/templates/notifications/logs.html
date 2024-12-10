@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+    <h1>Notifications</h1>
+    <nav>
+        <a href="{% url 'core:index' %}">Back to Dashboard</a>
+        <a href="{% url 'notifications:clear_notifications' %}">Clear Notifications</a>
+    </nav>
+    <ul>
+        {% for notification in notifications %}
+        <li class="{{ notification.status|lower }}">
+            <strong>{{ notification.type }}:</strong> {{ notification.message }}
+            {% if notification.status == 'Unread' %}
+                <a href="{% url 'notifications:mark_as_read' notification.id %}">Mark as Read</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

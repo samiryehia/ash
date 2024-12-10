@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %} 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluate Model</title>
+    <link rel="stylesheet" href="{% static 'ai/style.css' %}">
+</head>
+<body>
+    <h1>Evaluation Results</h1>
+    <p>Total Reward: {{ total_reward }}</p>
+    <a href="{% url 'ai:index' %}">Back to Home</a>
+</body>
+</html>

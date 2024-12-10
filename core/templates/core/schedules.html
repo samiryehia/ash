@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedules</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+    <h1>Schedules</h1>
+    <a href="{% url 'core:index' %}">Back to Home</a>
+    <ul>
+        {% for schedule in schedules %}
+        <li>
+            {{ schedule.device.name }} - {{ schedule.action }} at {{ schedule.time }}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
