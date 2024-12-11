@@ -5,6 +5,7 @@ app_name = "core"
 
 urlpatterns = [
     path("", views.index, name="index"),  # Home page for Core module
+    path("toggle-device/<int:device_id>/", views.toggle_device, name="toggle_device"),  # Device toggle view
     path("users/", views.users, name="users"),  # User management page
     path("devices/", views.devices, name="devices"),  # Device management page
     path("schedules/", views.schedules, name="schedules"),  # Schedule management page

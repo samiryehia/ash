@@ -33,27 +33,20 @@ def generate_recommendations_from_logs(user_id, usage_logs):
 
     # Map predicted action to recommendation details
     action_map = {
-    0: {"action": "Turn off all devices", "reason": "Reduce standby energy usage", "expected_savings": "15%"},
-    1: {"action": "Enable eco mode", "reason": "Optimize energy consumption", "expected_savings": "10%"},
-    2: {"action": "Dim lights", "reason": "Lower lighting energy consumption", "expected_savings": "5%"},
-    3: {"action": "Schedule HVAC usage", "reason": "Avoid peak hours for HVAC", "expected_savings": "20%"},
-    4: {"action": "Activate security cameras", "reason": "Enhance safety during nighttime", "expected_savings": "N/A"},
-    5: {"action": "Adjust thermostat to 22°C", "reason": "Maintain comfortable temperature", "expected_savings": "12%"},
-    6: {"action": "Turn on water heater", "reason": "Prepare for morning showers", "expected_savings": "5%"},
-    7: {"action": "Disable standby mode", "reason": "Save idle power usage", "expected_savings": "3%"},
-    8: {"action": "Turn on outdoor lights", "reason": "Increase security visibility", "expected_savings": "N/A"},
-    9: {"action": "Close window blinds", "reason": "Retain indoor heat", "expected_savings": "8%"},
-    10: {"action": "Turn off non-essential appliances", "reason": "Minimize energy waste", "expected_savings": "10%"},
-    11: {"action": "Schedule dishwasher usage", "reason": "Run during off-peak hours", "expected_savings": "15%"},
-    12: {"action": "Switch to renewable power source", "reason": "Reduce carbon footprint", "expected_savings": "N/A"},
-    13: {"action": "Enable night mode", "reason": "Reduce unnecessary light brightness", "expected_savings": "7%"},
-    14: {"action": "Optimize ventilation system", "reason": "Improve air circulation", "expected_savings": "5%"},
-    15: {"action": "Monitor refrigerator temperature", "reason": "Prevent overcooling", "expected_savings": "4%"},
-    16: {"action": "Enable smart scheduling", "reason": "Synchronize device usage", "expected_savings": "18%"},
-    17: {"action": "Turn off gaming consoles", "reason": "Minimize idle power draw", "expected_savings": "6%"},
-    18: {"action": "Reduce HVAC power during peak hours", "reason": "Minimize energy costs", "expected_savings": "20%"},
-    19: {"action": "Install energy-saving bulbs", "reason": "Reduce lighting costs", "expected_savings": "25%"},
-}
+    0: {"action": "Turn off all lights", "reason": "Reduce unnecessary lighting energy", "expected_savings": "10%"},
+    1: {"action": "Dim living room lights to 50%", "reason": "Lower lighting energy consumption during relaxation", "expected_savings": "5%"},
+    2: {"action": "Turn off HVAC in unoccupied rooms", "reason": "Save energy in unused spaces", "expected_savings": "15%"},
+    3: {"action": "Schedule HVAC to run during off-peak hours", "reason": "Avoid high energy costs during peak times", "expected_savings": "20%"},
+    4: {"action": "Activate security cameras", "reason": "Enhance safety at night", "expected_savings": "N/A"},
+    5: {"action": "Set thermostat to 22°C in the bedroom", "reason": "Maintain comfortable sleeping temperature", "expected_savings": "12%"},
+    6: {"action": "Turn off kitchen appliances", "reason": "Avoid standby energy usage", "expected_savings": "8%"},
+    7: {"action": "Enable eco mode on HVAC", "reason": "Optimize energy consumption", "expected_savings": "10%"},
+    8: {"action": "Turn on water heater for 30 minutes", "reason": "Prepare for morning showers efficiently", "expected_savings": "5%"},
+    9: {"action": "Enable night mode on lights", "reason": "Reduce unnecessary brightness during sleep", "expected_savings": "7%"},
+    10: {"action": "Adjust thermostat in the living room to 24°C", "reason": "Reduce cooling energy consumption", "expected_savings": "8%"},
+    11: {"action": "Switch off garage lights", "reason": "Prevent wasteful lighting in unoccupied areas", "expected_savings": "5%"},
+    }
+
 
     recommendation_details = action_map.get(
         int(action),

@@ -14,35 +14,67 @@
         <a href="{% url 'core:devices' %}">Manage Devices</a>
         <a href="{% url 'core:schedules' %}">Manage Schedules</a>
     </nav>
+  
+<section class="room">
+    {% for room in rooms %}
+    <h2>{{ room.name }}</h2>
+    <p><strong>Admin:</strong> {{ room.admin.username }}</p>
+    <h3>Devices</h3>
+    <ul>
+        {% for device in devices %}
+            {% if device.room.id == room.id %}
+            <li>
+                <strong>{{ device.name }}</strong> ({{ device.type }})
+                - Status: <span class="{{ device.status|lower }}">{{ device.status }}</span>
+                <form method="POST" action="{% url 'core:toggle_device' device.id %}">
+                    {% csrf_token %}
+                    <button type="submit">
+                        {% if device.status == "ON" %}
+                            Turn OFF
+                        {% else %}
+                            Turn ON
+                        {% endif %}
+                    </button>
+                </form>
+            </li>
+            {% endif %}
+        {% empty %}
+        <li>No devices in this room.</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+</section>
+    
+<section class="notifications">
+    <h2>Notifications</h2>
+    <ul>
+        {% for notification in notifications %}
+        <li>
+            <strong>{{ notification.type }}</strong>: {{ notification.message }}
+            <small>(Received: {{ notification.timestamp|date:"Y-m-d H:i:s" }})</small>
+        </li>
+        {% empty %}
+        <li>No notifications available.</li>
+        {% endfor %}
+    </ul>
+</section>
 
-    <section>
-        <h2>Notifications</h2>
-        {% if notifications %}
-            <ul>
-                {% for notification in notifications %}
-                    <li class="{{ notification.status|lower }}">
-                        <strong>{{ notification.type }}:</strong> {{ notification.message }}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No notifications available.</p>
-        {% endif %}
+    </main>
+    <section class="logs">
+        <h2>Recent Device Actions</h2>
+        <ul>
+            {% for log in action_logs %}
+            <li>
+                <strong>{{ log.details.device_name }}</strong>: {{ log.action }} 
+                <small>(on {{ log.timestamp|date:"Y-m-d H:i:s" }})</small>
+            </li>
+            {% empty %}
+            <li>No recent actions logged.</li>
+            {% endfor %}
+        </ul>
     </section>
-    <section>
-        <h2>Device Logs</h2>
-        {% if action_logs %}
-            <ul>
-                {% for log in action_logs %}
-                    <li>
-                        {{ log.timestamp }}: {{ log.action }} - {{ log.details.device_name }}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No action logs available.</p>
-        {% endif %}
-    </section>
+    
+    
     
     <section>
         <h2>Energy Usage Logs</h2>

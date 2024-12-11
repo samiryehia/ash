@@ -1,25 +1,18 @@
 from pathlib import Path
-import environ
 
-env = environ.Env(
-    DEBUG=(bool, False)
-)
-
-environ.Env.read_env()
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Secret key
+SECRET_KEY = 'django-insecure-your-secret-key'
 
-
+# Debug mode
 DEBUG = True
 
+# Allowed hosts
 ALLOWED_HOSTS = []
 
-
-
-
-
-SECRET_KEY = env('SECRET_KEY')
+AUTH_USER_MODEL = 'core.User'
 
 
 # Installed apps
@@ -78,8 +71,9 @@ DATABASES = {
     }
 }
 
+# MongoDB configuration
 from mongoengine import connect
-MONGO_DB_NAME = env('MONGODB_NAME')
+MONGO_DB_NAME = "ash"
 connect(
     db=MONGO_DB_NAME,
     host="localhost",
